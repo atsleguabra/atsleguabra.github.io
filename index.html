@@ -3,6 +3,7 @@
         <title>Atslēgu abra</title>
         <meta charset='utf-8' />
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel='stylesheet' href='style.css' />
         <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
         <script src='base64.min.js'></script>
         <script src='lock.js'></script>
@@ -18,11 +19,14 @@
                 padding: 5px 10px;
             }
         </style>
+        <div class='center'>
         <form id='credentials'>
+            <h2 class='lock-title'>Atslēgu kaste</h2>
+            <p id='badcredentials' style='color: red; display: none'>Nepareiza parole!</p>
             <input type='password' name='password' placeholder='parole'/>
             <input id='openbtn' type='submit' name='submit' value='Atvērt' />
         </form>
-        <p id='badcredentials' style='color: red; visibility: hidden'>Nepareiza parole!</p>
+        </div>
         <div class='openedbox'  style='visibility: hidden'>
             <h1>Labvakar, kungi!</h1>
             <form id='additem'>
