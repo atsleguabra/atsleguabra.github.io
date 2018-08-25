@@ -2,8 +2,54 @@
     <head>
         <title>Atslēgu abra</title>
         <meta charset='utf-8' />
+        <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
+        <script src='base64.min.js'></script>
+        <script src='lock.js'></script>
+        <script src='script.js'></script>
     </head>
     <body>
-        <h1>We're live!</h1>
+        <style>
+            table {
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 5px 10px;
+            }
+        </style>
+        <form id='credentials'>
+            <input type='password' name='password' placeholder='parole'/>
+            <input id='openbtn' type='submit' name='submit' value='Atvērt' />
+        </form>
+        <p id='badcredentials' style='color: red; visibility: hidden'>Nepareiza parole!</p>
+        <div class='openedbox'  style='visibility: hidden'>
+            <h1>Labvakar, kungi!</h1>
+            <form id='additem'>
+                <input type='text' name='name' placeholder='vārds'/><br>
+                <input type='text' name='password' placeholder='parole' style='display: inline-block; width: 90%'/>
+                <input type='submit' value='Pievienot' />
+                <p>Radīt paroli?</p>
+                <span>Garums: </span>
+                <input type='number' name='len' value='paroles garums' />
+                <br>
+                <span>Atļautie burti: </span>
+                <input type='text' name='regex' value='a-zA-Z0-9~`!@#$%^&*\(\)\-\_\=\+\{\}\[\]\|\:\;\<\,\>\.\?'  style='display: inline-block; width: 90%'>
+                <br>
+                <input type='button' id='makepass' value='radīt' />
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lapa</th>
+                        <th>Parole</th>
+                    </tr>
+                </thead>
+                <tbody id='boxcontents'>
+
+                </tbody>
+            </table>
+            <br><br>
+            <button id='save'>Saglabāt</button>
+        </div>
     </body>
 </html>
