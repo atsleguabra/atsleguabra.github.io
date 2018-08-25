@@ -23,7 +23,7 @@ function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
   }
 
-const file_url = 'http://dl.dropboxusercontent.com/s/be8m60vnacny8lv/lockbox.json';
+const file_url = 'https://dl.dropboxusercontent.com/s/be8m60vnacny8lv/lockbox.json';
 const details_url = 'https://dl.dropboxusercontent.com/s/jacsnse9epvpip4/details.json';
 
 {
