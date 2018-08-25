@@ -44,8 +44,21 @@ const details_url = 'https://dl.dropboxusercontent.com/s/jacsnse9epvpip4/details
                 name.innerText = i.name;
                 let pass = document.createElement('td');
                 pass.innerText = i.password;
+                let select = document.createElement('td');
+                let btn = document.createElement('button');
                 row.append(name);
                 row.append(pass);
+                btn.innerText = 'Izvēlēties';
+                btn.addEventListener('click', () => {
+                    let range = document.createRange();
+                    console.log(pass);
+                    range.selectNodeContents(pass);
+                    let selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                })
+                select.append(btn);
+                row.append(select);
             }
             box_contents.append(row);
         }
@@ -60,6 +73,19 @@ const details_url = 'https://dl.dropboxusercontent.com/s/jacsnse9epvpip4/details
                 pass.innerText = additem_form.password.value;
                 row.append(name);
                 row.append(pass);
+                let select = document.createElement('td');
+                let btn = document.createElement('button');
+                btn.innerText = 'Izvēlēties';
+                btn.addEventListener('click', () => {
+                    let range = document.createRange();
+                    console.log(pass);
+                    range.selectNodeContents(pass);
+                    let selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                })
+                select.append(btn);
+                row.append(select);
             }
             box_contents.append(row);
         })
