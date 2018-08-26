@@ -3,6 +3,7 @@
         <title>Atslēgu abra</title>
         <meta charset='utf-8' />
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         <link rel='stylesheet' href='style.css' />
         <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
         <script src='base64.min.js'></script>
@@ -11,10 +12,10 @@
     </head>
     <body>
         <style>
-            table {
+            .openedbox table {
                 border-collapse: collapse;
             }
-            th, td {
+            .openedbox th, .openedbox td {
                 border: 1px solid black;
                 padding: 5px 10px;
             }
@@ -22,10 +23,24 @@
         <div class='center'>
         <form id='credentials'>
             <h2 class='lock-title'>Atslēgu kaste</h2>
-            <p id='badcredentials' style='color: red; display: none'>Nepareiza parole!</p>
             <input type='password' name='password' placeholder='parole'/>
             <input id='openbtn' type='submit' name='submit' value='Atvērt' />
         </form>
+        <div class='entry'>
+            <div class='entry-title'>google.com<i class="entry-edit fas fa-pen-square"></i></div>
+            <table class='entry-body'>
+                <tr>
+                    <td class='entry-key'>Lietotājs: </td>
+                    <td><input type='text' class='entry-value' readonly value='yvn@345h#45,t345/23'/></td>
+                </tr>
+                <tr>
+                    <td class='entry-key'>Parole: </td>
+                    <td>
+                        <input type='password' class='entry-value' readonly/>
+                    </td>
+                </tr>
+            </table>
+        </div>
         </div>
         <div class='openedbox'  style='visibility: hidden'>
             <h1>Labvakar, kungi!</h1>

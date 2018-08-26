@@ -136,14 +136,14 @@ const details_url = 'https://dl.dropboxusercontent.com/s/jacsnse9epvpip4/details
             box_key = key; 
             open_ui();
         } catch(e) {
-            document.querySelector('#badcredentials').style.display = 'block';
+            credentials.password.classList.add('incorrect');
         }
     }
 
     window.onload = () => {
         openedbox_ui = document.querySelector('.openedbox');
         document.querySelector('#credentials').addEventListener('submit', function(e) {
-            document.querySelector('#badcredentials').style.display = 'block';
+            this.password.classList.remove('incorrect');
             e.preventDefault();
             if(openedbox !== null) return;
             auth(this);
