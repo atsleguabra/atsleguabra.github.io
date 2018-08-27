@@ -26,48 +26,42 @@
             <input type='password' name='password' placeholder='parole'/>
             <input id='openbtn' type='submit' name='submit' value='Atvērt' />
         </form>
-        <div class='entry'>
-            <div class='entry-title'>google.com<i class="entry-edit fas fa-pen-square"></i></div>
-            <table class='entry-body'>
-                <tr>
-                    <td class='entry-key'>Lietotājs: </td>
-                    <td><input type='text' class='entry-value' readonly value='yvn@345h#45,t345/23'/></td>
-                </tr>
-                <tr>
-                    <td class='entry-key'>Parole: </td>
-                    <td>
-                        <input type='password' class='entry-value' readonly/>
-                    </td>
-                </tr>
-            </table>
         </div>
-        </div>
-        <div class='openedbox'  style='visibility: hidden'>
-            <h1>Labvakar, kungi!</h1>
-            <form id='additem'>
-                <input type='text' name='name' placeholder='vārds'/><br>
-                <input type='text' name='password' placeholder='parole' style='display: inline-block; width: 90%'/>
-                <input type='submit' value='Pievienot' />
-                <p>Radīt paroli?</p>
-                <span>Garums: </span>
-                <input type='number' name='len' value='paroles garums' />
-                <br>
-                <span>Atļautie burti: </span>
-                <input type='text' name='regex' value='a-zA-Z0-9~`!@#$%^&*\(\)\-\_\=\+\{\}\[\]\|\:\;\<\,\>\.\?'  style='display: inline-block; width: 90%'>
-                <br>
-                <input type='button' id='makepass' value='radīt' />
+        <template id='entry-template'>
+            <form class='entry'>
+                <div class='entry-body'>
+                    <span class='entry-item-name'>Lietotājs</span>
+                    <input type='hidden' name='entry-id' value='' />
+                    <input type='text' class='entry-item-value' name='entry-name' readonly='false' value=''/>
+                    <span class='entry-item-name'>Parole</span>
+                    <div class='entry-item-group'>
+                        <input class='entry-item-value' type='password' name='entry-password' readonly value='' />
+                        <i class="fas fa-eye entry-item-modifier entry-view-password"></i>
+                        <i class="fas fa-dice entry-item-modifier entry-toggle-passopt hidden"></i>
+                    </div>
+                </div>
+                <div class='entry-passopt'>
+                        <span class='entry-passopt-title'>Simboli</span><span class='entry-passopt-title'>Garums</span>
+                        <input class='entry-passopt-symbols' name='entry-passopt-symbols' value='a-zA-Z0-9!?.,@#$%^&*_\-=+:;' type='text'/>
+                        <input class='entry-passopt-length' name='entry-passopt-length' type='number' value='16'/>
+                        <input class='entry-passopt-gen' name='entry-passopt-gen' type='button' value='Izveidot paroli'/>
+                </div>
+                <div class='entry-head'>
+                        <input type='text' class='entry-title' name='entry-title' value='google.com' readonly />
+                        <div class='entry-actions'>
+                            <i class='entry-delete fas fa-trash-alt hidden'></i>
+                            <i class="entry-edit fas fa-pen"></i>
+                        </div>
+                    </div>
+                </div>
             </form>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Lapa</th>
-                        <th>Parole</th>
-                    </tr>
-                </thead>
-                <tbody id='boxcontents'>
-
-                </tbody>
-            </table>
+        </template>
+        <div class='openedbox'  style='visibility: hidden'>
+            <div class='center'>
+            <button class='add-entry'><i class='fas fa-plus'></i></button>
+            </div>
+            <div class='entries'>
+            </div>
             <br><br>
             <button id='save'>Saglabāt</button>
         </div>

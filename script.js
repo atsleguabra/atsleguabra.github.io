@@ -20,7 +20,7 @@ const blobToText = (blob) => {
 }
 
 function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    return string.replace(/[.*+?^${}()|[\]]/g, '\\$&'); // $& means the whole matched string
   }
 
 const file_url = 'https://dl.dropboxusercontent.com/s/be8m60vnacny8lv/lockbox.json';
@@ -34,66 +34,49 @@ const details_url = 'https://dl.dropboxusercontent.com/s/jacsnse9epvpip4/details
     let open_ui = () => {
         console.log(openedbox);
         let additem_form = document.querySelector('#additem');
-        let box_contents = document.querySelector('#boxcontents');
+        let box_contents = document.querySelector('.entries');
+        let template = document.querySelector('#entry-template');
         openedbox_ui.style.visibility = 'visible';
         if(openedbox.contents === undefined) openedbox.contents = [];
         for(let i of openedbox.contents) {
-            let row = document.createElement('tr');
-            {
-                let name = document.createElement('td');
-                name.innerText = i.name;
-                let pass = document.createElement('td');
-                pass.innerText = i.password;
-                let select = document.createElement('td');
-                let btn = document.createElement('button');
-                row.append(name);
-                row.append(pass);
-                btn.innerText = 'Izvēlēties';
-                btn.addEventListener('click', () => {
-                    let range = document.createRange();
-                    console.log(pass);
-                    range.selectNodeContents(pass);
-                    let selection = window.getSelection();
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                })
-                select.append(btn);
-                row.append(select);
-            }
-            box_contents.append(row);
+           let entry = template.content.cloneNode(true).querySelector('.entry');
+           console.log(entry);
+           entry['entry-name'].value = i.name;
+           entry['entry-password'].value = i.password;
+           entry.querySelector('.entry-toggle-passopt').addEventListener('click', () => {
+               entry.querySelector('.entry-passopt').classList.toggle('active');
+           })
+           entry.querySelector('.entry-view-password').addEventListener('click', function() {
+               if(entry['entry-password'].type == 'text') {
+                    entry['entry-password'].type = 'password';
+                    this.classList.add('fa-eye');
+                    this.classList.remove('fa-eye-slash');
+               } else {
+                    entry['entry-password'].type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+               }
+           });
+           entry.querySelector('.entry-edit').addEventListener('click', function() {
+            let val = true;
+            if(this.classList.contains('fa-pen')) val = !val;
+            entry.querySelector('.entry-passopt').classList.remove('active');
+            entry['entry-name'].readOnly = val;
+            entry['entry-password'].readOnly = val;
+            entry['entry-title'].readOnly = val;
+            entry.querySelector('.entry-toggle-passopt').classList.toggle('hidden', val);
+            entry.querySelector('.entry-delete').classList.toggle('hidden', val);
+            this.classList.toggle('fa-pen', val);
+            this.classList.toggle('fa-check-circle', !val);
+           });
+           entry['entry-passopt-gen'].addEventListener('click', () => {
+                entry['entry-password'].value = generatePassword(entry['entry-passopt-length'].value, 
+                            new RegExp(`[${escapeRegExp(entry['entry-passopt-symbols'].value)}]`, 'g'));
+                //entry.querySelector('.entry-passopt').classList.remove('active');
+           })
+           box_contents.append(entry);
+           console.log('hello');
         }
-        additem_form.addEventListener('submit', e => {
-            e.preventDefault();
-            openedbox.contents.push({ name: additem_form.name.value, password: additem_form.password.value });
-            let row = document.createElement('tr');
-            {
-                let name = document.createElement('td');
-                name.innerText = additem_form.name.value;
-                let pass = document.createElement('td');
-                pass.innerText = additem_form.password.value;
-                row.append(name);
-                row.append(pass);
-                let select = document.createElement('td');
-                let btn = document.createElement('button');
-                btn.innerText = 'Izvēlēties';
-                btn.addEventListener('click', () => {
-                    let range = document.createRange();
-                    console.log(pass);
-                    range.selectNodeContents(pass);
-                    let selection = window.getSelection();
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                })
-                select.append(btn);
-                row.append(select);
-            }
-            box_contents.append(row);
-        })
-        document.querySelector('#makepass').addEventListener('click', () => {
-            console.log('ya');
-            additem_form.password.value = 
-            generatePassword(additem_form.len.value, new RegExp(`[${escapeRegExp(additem_form.regex.value)}]`, 'g'));
-        })
         document.querySelector('#save').addEventListener('click',() => {
             (async () => {
                 try {
