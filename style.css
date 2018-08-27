@@ -107,6 +107,10 @@ body {
     margin: 30px;
 }
 
+.entry i {
+    padding: 3px;
+}
+
 .entry .hidden {
     display: none;
 }
