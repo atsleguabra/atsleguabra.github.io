@@ -100,16 +100,34 @@ let p;
         openedbox_ui.style.visibility = 'visible';
         if(openedbox.contents === undefined) openedbox.contents = [];
         openedbox.contents = new Map(openedbox.contents.map(x => [counter++, x]));
+        let entries = [];
         for(let i of openedbox.contents) {
-           add_entry(i);
-           console.log('hello');
+           entries.push(add_entry(i));
         }
+        setTimeout(() => {
+            document.querySelector('#credentials').classList.add('float-out');
+            document.querySelector('#credentials').addEventListener('animationend', () => {
+                document.querySelector('.login-view').remove();
+            })
+            let delay = openedbox.contents.size * 0.2 + 0.2;
+            console.log(delay);
+            let actions = document.querySelector('.actions');
+            actions.style['transition-delay'] = delay + 0.5 + 's';
+
+            entries.forEach(e => {
+                e.style['animation-delay'] = delay + 's';
+                delay -= 0.2;
+                e.classList.add('show')
+            })
+            actions.classList.add('show');
+        }, 500);
         document.querySelector('.add-entry').addEventListener('click', () => {
             let i = [counter++, { name: '', password: '', title: ''}];
             openedbox.contents.set(i[0], i[1]);
             let entry = add_entry(i);
+            entry.classList.add('show-imm');
             entry.querySelector('.entry-edit').click();
-            entry.querySelector('.entry-passopt').classList.add('active');
+            //entry.querySelector('.entry-passopt').classList.add('active');
             entry['entry-name'].focus();
         })
         document.querySelector('#save').addEventListener('click',() => {

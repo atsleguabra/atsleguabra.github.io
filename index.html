@@ -11,21 +11,12 @@
         <script src='script.js'></script>
     </head>
     <body>
-        <style>
-            .openedbox table {
-                border-collapse: collapse;
-            }
-            .openedbox th, .openedbox td {
-                border: 1px solid black;
-                padding: 5px 10px;
-            }
-        </style>
-        <div class='center'>
-        <form id='credentials'>
-            <h2 class='lock-title'>Atslēgu kaste</h2>
-            <input type='password' name='password' placeholder='parole'/>
-            <input id='openbtn' type='submit' name='submit' value='Atvērt' />
-        </form>
+        <div class='login-view'>
+            <form id='credentials'>
+                <h2 class='lock-title'>Atslēgu kaste</h2>
+                <input type='password' name='password' placeholder='parole'/>
+                <input id='openbtn' type='submit' name='submit' value='Atvērt' />
+            </form>
         </div>
         <template id='entry-template'>
             <form class='entry'>
@@ -57,13 +48,12 @@
             </form>
         </template>
         <div class='openedbox'  style='visibility: hidden'>
-            <div class='center'>
-            <button class='add-entry'><i class='fas fa-plus'></i></button>
-            </div>
+            <div class='actions'>
+                    <button class='add-entry action-btn'><i class='fas fa-plus'></i></button>
+                    <button id='save' class='action-btn'><i class='fas fa-save'></i></button>
+            </div>    
             <div class='entries'>
             </div>
-            <br><br>
-            <button id='save'>Saglabāt</button>
         </div>
     </body>
 </html>
