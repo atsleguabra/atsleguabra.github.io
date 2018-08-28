@@ -22,12 +22,16 @@
             <form class='entry'>
                 <div class='entry-body'>
                     <span class='entry-item-name'>Lietotājs</span>
+                    <div class='entry-item-group'>
+                        <input type='text' class='entry-item-value' name='entry-name' readonly='false' value=''/>
+                        <i class="fas fa-copy entry-item-modifier entry-copy" data-copy='entry-name'></i>
+                    </div>
                     <input type='hidden' name='entry-id' value='' />
-                    <input type='text' class='entry-item-value' name='entry-name' readonly='false' value=''/>
                     <span class='entry-item-name'>Parole</span>
                     <div class='entry-item-group'>
                         <input class='entry-item-value' type='password' name='entry-password' readonly value='' />
                         <i class="fas fa-eye entry-item-modifier entry-view-password"></i>
+                        <i class="fas fa-copy entry-item-modifier entry-copy" data-copy='entry-password'></i>
                         <i class="fas fa-dice entry-item-modifier entry-toggle-passopt hidden"></i>
                     </div>
                 </div>

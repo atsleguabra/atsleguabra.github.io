@@ -57,15 +57,21 @@ let p;
         entry['entry-password'].value = i.password;
         entry['entry-id'].value = id;
         entry['entry-title'].value = i.title;
-        add_input_listeners(entry['entry-name']);
-        add_input_listeners(entry['entry-password']);
-        add_input_listeners(entry['entry-title']);
         entry['entry-password'].addEventListener('copy', function(e) {
             if(this.type === 'password') {
                 e.preventDefault();
                 e.clipboardData.setData('text/plain', this.value);
             }
         })
+
+        entry.querySelectorAll('.entry-copy').forEach(it => {
+            it.addEventListener('click', () => {
+                let target = entry[it.dataset['copy']];
+                console.log(it.dataset);
+                target.select();
+                document.execCommand('copy');
+            })
+        });
 
         entry.querySelector('.entry-toggle-passopt').addEventListener('click', () => {
             entry.querySelector('.entry-passopt').classList.toggle('active');
