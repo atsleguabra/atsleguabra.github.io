@@ -47,6 +47,9 @@ let p;
     let box_key = null;
     let counter = 0;
 
+    let file;
+    let details;
+
     let add_entry = (i) => {
         [id, i] = i;
         let box_contents = document.querySelector('.entries');
@@ -198,11 +201,23 @@ let p;
                 }
             })();
         })
+        document.querySelector('#change-pass').addEventListener('click', () => {
+            let pass = prompt('enter new password: ');
+            let second = prompt('repeat password: ');
+            if(pass !== second) {
+                alert('Passwords dont match!');
+                return;
+            }
+           get_key(pass).then(key => {
+               box_key = key;
+               alert('success!');
+           });
+        })
     }
 
     let auth = async(credentials) => {
-        let file = await load(file_url);
-        let details = await loadJSON(details_url);
+        file = await load(file_url);
+        details = await loadJSON(details_url);
         
         let key = await get_key(credentials.password.value);
         try {
