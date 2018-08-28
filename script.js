@@ -109,7 +109,8 @@ let p;
             document.querySelector('#credentials').addEventListener('animationend', () => {
                 document.querySelector('.login-view').remove();
             })
-            let delay = openedbox.contents.size * 0.2 + 0.2;
+            let delay = openedbox.contents.size * 0.2 + 0.3;
+            
             console.log(delay);
             let actions = document.querySelector('.actions');
             actions.style['transition-delay'] = delay + 0.5 + 's';
