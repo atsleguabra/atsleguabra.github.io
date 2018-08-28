@@ -26,6 +26,20 @@ function escapeRegExp(string) {
 const file_url = 'https://dl.dropboxusercontent.com/s/be8m60vnacny8lv/lockbox.json';
 const details_url = 'https://dl.dropboxusercontent.com/s/jacsnse9epvpip4/details.json';
 
+let add_input_listeners = (i) => {
+    i.hadBlur = true;
+
+    i.addEventListener('blur', function(e) {
+        this.hadBlur = true;
+        this.setSelectionRange(0,0);
+    })
+
+    i.addEventListener('click', function(e) {
+        if(this.hadBlur) this.select();
+        this.hadBlur = false;
+    }, true);
+}
+
 let p;
 {
     let openedbox_ui;
@@ -43,6 +57,15 @@ let p;
         entry['entry-password'].value = i.password;
         entry['entry-id'].value = id;
         entry['entry-title'].value = i.title;
+        add_input_listeners(entry['entry-name']);
+        add_input_listeners(entry['entry-password']);
+        add_input_listeners(entry['entry-title']);
+        entry['entry-password'].addEventListener('copy', function(e) {
+            if(this.type === 'password') {
+                e.preventDefault();
+                e.clipboardData.setData('text/plain', this.value);
+            }
+        })
 
         entry.querySelector('.entry-toggle-passopt').addEventListener('click', () => {
             entry.querySelector('.entry-passopt').classList.toggle('active');
@@ -79,7 +102,10 @@ let p;
         entry.querySelector('.entry-delete').addEventListener('click', () => {
             if(confirm('are you sure?')) {
                 openedbox.contents.delete(parseInt(entry['entry-id'].value));
-                entry.remove();
+                entry.classList.add('del');
+                entry.addEventListener('animationend', () => {
+                    entry.remove();
+                });
             }
         })
         entry['entry-passopt-gen'].addEventListener('click', () => {
@@ -110,7 +136,7 @@ let p;
                 document.querySelector('.login-view').remove();
             })
             let delay = openedbox.contents.size * 0.2 + 0.3;
-            
+
             console.log(delay);
             let actions = document.querySelector('.actions');
             actions.style['transition-delay'] = delay + 0.5 + 's';
@@ -127,6 +153,7 @@ let p;
             openedbox.contents.set(i[0], i[1]);
             let entry = add_entry(i);
             entry.classList.add('show-imm');
+            window.scroll({ top: 0, behavior: 'instant'});
             entry.querySelector('.entry-edit').click();
             //entry.querySelector('.entry-passopt').classList.add('active');
             entry['entry-name'].focus();
